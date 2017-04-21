@@ -1,4 +1,4 @@
-from flask import render_template
+from flask import render_template, request
 from . import app
 from .models import Reputation
 
@@ -11,3 +11,4 @@ def index():
 @app.route('/ttp')
 def ttp_feed():
 	return render_template('app/ttp.html')
+
