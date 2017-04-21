@@ -1,0 +1,15 @@
+1) Data collected ?
+	- nginx access/error
+	- Auth log
+	- SMTP
+	- IMAP
+	- IDS
+	- Fail2Ban
+	- DNS (TODO: Adam)
+	- Firewall (ufw/IPtables etc)
+
+2) Categories
+	- ..
+3) Aggregation se stadia ( ana domain, ana log, ana kathgoria, ana IP/Prefix)
+
+4) API Exposure / Produce knowledge / Banlists etc.
