@@ -1,11 +1,11 @@
 1) Data collected ?
-	- nginx access/error
-	- Auth log
-	- SMTP
-	- IMAP
+	- nginx access/error			(PDONE)
+	- Auth log						(DONE)
+	- SMTP							(SAME)
+	- IMAP							(SAME)
 	- IDS
 	- Fail2Ban
-	- DNS (TODO: Adam)
+	- DNS (TODO: Adam) ( To IDS tha prepei na kanei detect malware signatures kalutera)
 	- Firewall (ufw/IPtables etc)
 
 2) Categories
