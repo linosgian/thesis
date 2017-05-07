@@ -1,0 +1,41 @@
+###################### Filebeat Apache Configuration ##########################
+
+#=========================== Filebeat prospectors =============================
+
+filebeat.prospectors:
+
+- input_type: log
+  paths:
+    # Cover All Linux distributions
+    - "/var/log/httpd/access.log"
+    - "/var/log/httpd/error.log"
+    - "/var/log/apache2/access.log"
+    - "/var/log/apache2/error.log"
+    - "/var/log/httpd-access.log"
+    - "/var/log/httpd-error.log"
+  document_type: webserver
+  fields:
+    service: apache
+  fields_under_root: true
+
+#================================ General =====================================
+
+# The name of the shipper that publishes the network data. It can be used to group
+# all the transactions sent by a single shipper in the web interface.
+name: Apache
+
+#================================ Outputs =====================================
+
+
+#----------------------------- Logstash output --------------------------------
+output.logstash:
+  hosts : ["147.102.13.153:5044"]
+
+  # List of root certificates for HTTPS server verifications
+  #ssl.certificate_authorities: ["/etc/pki/root/ca.pem"]
+
+  # Certificate for SSL client authentication
+  #ssl.certificate: "/etc/pki/client/cert.pem"
+
+  # Client Certificate Key
+  #ssl.key: "/etc/pki/client/cert.key"

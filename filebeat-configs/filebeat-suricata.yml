@@ -1,0 +1,37 @@
+##################### Filebeat suricata Configuration  ########################
+
+#=========================== Filebeat prospectors =============================
+
+filebeat.prospectors:
+
+- input_type: log
+  # Two filenames are specified to cover CentOS and Ubuntu flavored OSes
+  paths:
+    - "/var/log/suricata/eve.json"
+  document_type: IDS
+  fields:
+    service: suricata
+  fields_under_root: true
+
+#================================ General =====================================
+
+# The name of the shipper that publishes the network data. It can be used to group
+# all the transactions sent by a single shipper in the web interface.
+name: SuricataLogs
+
+#================================ Outputs =====================================
+
+
+#----------------------------- Logstash output --------------------------------
+output.logstash:
+  hosts : ["147.102.13.153:5044"]
+
+  # Optional SSL. By default is off.
+  # List of root certificates for HTTPS server verifications
+  #ssl.certificate_authorities: ["/etc/pki/root/ca.pem"]
+
+  # Certificate for SSL client authentication
+  #ssl.certificate: "/etc/pki/client/cert.pem"
+
+  # Client Certificate Key
+  #ssl.key: "/etc/pki/client/cert.key"
