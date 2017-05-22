@@ -1,1 +1,4 @@
-/opt/logstash/patterns/dovecot
+WORDASH (\w|-)+
+MULT_WORDS ((\w+|:)(\s)?)+
+USEROREMAIL %{USERNAME:user}(@%{HOSTNAME:domain})?
+DOVECOTFAILED %{CISCOTIMESTAMP} %{WORD:protocol}-login: Info: %{MULT_WORDS:status} \(auth failed, \d+ attempts\): (user=<%{USEROREMAIL}>, )?method=%{WORDASH:method}, rip=%{IP:attacker_ip}, lip=%{IP:host_ip}
