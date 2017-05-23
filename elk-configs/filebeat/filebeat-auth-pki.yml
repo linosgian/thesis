@@ -11,9 +11,9 @@ filebeat.prospectors:
     - "/var/log/secure"
   document_type: auth
   fields:
-    service: sshd-pw
+    service: sshd-pki
   fields_under_root: true
-  include_lines: ["Failed", "Did not receive"]
+  include_lines: ["Invalid user", "Did not receive"]
 
 #================================ General =====================================
 

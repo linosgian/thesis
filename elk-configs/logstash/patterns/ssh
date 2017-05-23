@@ -1,3 +1,6 @@
 SSHPREFIX %{SYSLOGTIMESTAMP:timestamp} %{HOSTNAME:host_target} sshd\[%{BASE10NUM}\]:
 SSHINVALIDUSER %{SSHPREFIX} Failed (none|password) for invalid user %{USERNAME:username} from %{IP:attacker_ip} port %{BASE10NUM:port} ssh2
 SSHFAILEDLOGIN %{SSHPREFIX} Failed password for %{USERNAME:username} from %{IP:attacker_ip} port %{BASE10NUM:port} ssh2
+SSH
+SSHBANNERGRAB %{SSHPREFIX} Did not receive identification string from %{IP:attacker_ip}
+SSHINVALIDUSERPKI %{SSHPREFIX} Invalid user %{USERNAME:username} from %{IP:attacker_ip}
