@@ -4,3 +4,4 @@ SSHFAILEDLOGIN %{SSHPREFIX} Failed password for %{USERNAME:username} from %{IP:a
 SSH
 SSHBANNERGRAB %{SSHPREFIX} Did not receive identification string from %{IP:attacker_ip}
 SSHINVALIDUSERPKI %{SSHPREFIX} Invalid user %{USERNAME:username} from %{IP:attacker_ip}
+SSHCONNCLOSED %{SSHPREFIX} Connection closed by %{IP:attacker_ip} \[preauth\]

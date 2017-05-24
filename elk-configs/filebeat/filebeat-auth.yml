@@ -7,19 +7,18 @@ filebeat.prospectors:
 - input_type: log
   # Two filenames are specified to cover CentOS and Ubuntu flavored OSes
   paths:
-    - "/var/log/auth.log"
+    - "/var/log/auth.log*"
+	# Avoid parsing "/var/log/securecustomservice.log" for example
     - "/var/log/secure"
+    - "/var/log/secure.*"
   document_type: auth
   fields:
-    service: sshd-pw
+    service: sshd
   fields_under_root: true
-  include_lines: ["Failed", "Did not receive"]
+  include_lines: ["Failed", "Did not receive", "Invalid user", "Connection closed by"]
+  exclude_files: ['\.gz$']
 
 #================================ General =====================================
-
-# The name of the shipper that publishes the network data. It can be used to group
-# all the transactions sent by a single shipper in the web interface.
-name: sshd
 
 #================================ Outputs =====================================
 
