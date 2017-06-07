@@ -1,0 +1,16 @@
+# Sample message after syslog-input-plugin
+
+{
+          "severity" => 0,
+        "@timestamp" => 2017-06-07T10:07:33.826Z,
+           "service" => "sshd",
+          "@version" => "1",
+              "host" => "147.102.13.19",
+           "message" => "<38>Jun  7 13:07:33 sshd[98113]: Failed password for root from 171.79.5.156 port 50503 ssh2",
+              "type" => "syslog",
+          "priority" => 0,
+          "facility" => 0,
+    "severity_label" => "Emergency",
+              "tags" => [],
+    "facility_label" => "kernel"
+}
