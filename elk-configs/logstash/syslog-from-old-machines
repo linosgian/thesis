@@ -1,0 +1,25 @@
+input {
+  beats {
+    port => 5044
+  }
+  syslog {
+    port => 57889
+    type => "syslog"
+  }
+}
+
+filter {
+  if [type] == "syslog" {
+    if "_grokparsefailure_sysloginput" in [tags] {
+      mutate { remove_tag => "_grokparsefailure_sysloginput" }
+    }
+
+    # Pre-process the message so that can be directed to normal sshd pipeline
+    mutate { add_field => [ "service", "sshd" ] }
+    mutate 
+  }
+}
+
+output {
+  stdout { codec => rubydebug }
+}
