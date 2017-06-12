@@ -103,3 +103,29 @@ body {
   display: inline-block;
   border-radius: 50%;
 }
+/*
+* Custom css
+*/
+
+#aggr_event_header{
+  text-transform: capitalize;
+}
+#main_table{
+  height: 300px;
+  overflow: auto;
+  margin-top: 0px;
+}
+
+#victim_container{
+  border-style: groove;
+  margin-top: 14px;
+}
+
+.line-separator{
+
+  height:1px;
+
+  background:#717171;
+
+  border-bottom:1px solid #313030;
+}

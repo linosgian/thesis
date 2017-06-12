@@ -15,7 +15,8 @@ filebeat.prospectors:
   fields:
     service: sshd
   fields_under_root: true
-  include_lines: ["Failed", "Did not receive", "Invalid user", "Connection closed by"]
+  include_lines: ["Failed", "Did not receive", "Invalid user", "Connection closed by", "PAM"]
+  exclude_lines: ["keyboard"]
   exclude_files: ['\.gz$']
 
 #================================ General =====================================
