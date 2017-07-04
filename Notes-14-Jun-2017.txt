@@ -1,0 +1,7 @@
+### Setting up Local-Repo for Events
+
+#### Install cronjob for 
+
+0 1 * * * /usr/bin/curl "localhost:5000/decay_rep" --silent --output /dev/null
+
+
