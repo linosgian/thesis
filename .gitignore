@@ -1,4 +1,7 @@
 __pycache__/
 *.py[cod]
-app/dev.db
+local_backend/app/dev.db
+local_backend/dev.db
 *.swp
+local_backend/migrations
+local_backend/.Trash-1000

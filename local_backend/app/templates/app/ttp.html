@@ -1,46 +1,83 @@
 {% extends "app/base.html" %}
 
-{% block content %}
-  <h2 class="sub-header" id="aggr_event_header">
-    Matching Results - [{{ local_distr }} - {{ aggr_event['district'] }}]
-  </h2>
+{% block extra_navbar %}
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+    Select Collaborator <span class="caret"></span>
+  </a>
 
-  <div class="table-responsive" id="main_table">
-    <table class="table table-bordered">
-      <thead>
-        <tr>
-            <th>Network</th>
-            <th>Local Attempts</th>
-            <th>Remote Attempts</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for network in results %}
-            <tr>
-              <td>{{ network.0 }}</td>
-              <td>{{ network.1 }}</td>
-              <td>{{ network.2 }}</td>
-            </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-  </div>
-  <h2 class="sub-header" id="aggr_event_header">
-    Latest Remote Aggregation: {{ aggr_event['district'] }}
-  </h2>
+  <ul class="dropdown-menu">
+    {% for district in districts %}
+      <li><a href="/ttp?coll={{district.district}}">{{district.district}}</a></li>
+    {% endfor %}
+  </ul>
+</li>
+{% endblock %}
+
+{% block content %}
+  {% if aggr_event['district'] == local_distr %}
+    <h2 class="sub-header" id="aggr_event_header">
+      Latest Local Aggregation
+    </h2>
+  {% else %}
+    <h2 class="sub-header" id="aggr_event_header">
+      Results - [{{ local_distr }} - {{ remote_district.district|title }}]
+    </h2>
+    <h3>
+      Matching Percentage: {{percentage}}% 
+      <form id="form" action="/" method="post">
+        <input type="hidden" name="topup" value="{{aggr_event['district']}}">
+        <button type="submit"><i class="fa fa-arrow-up" aria-hidden="true"></i>
+        </button>
+      </form> 
+    </h3>
+    <h4>
+      {{remote_district.district|title}}'s Reputation {{remote_district.rep}}%
+    </h4>
+    <div class="table-responsive" id="main_table">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+              <th>Network</th>
+              <th>Local Attempts</th>
+              <th>Remote Attempts</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for network in results %}
+              <tr>
+                <td>{{ network.0 }}</td>
+                <td>{{ network.1 }}</td>
+                <td>{{ network.2 }}</td>
+              </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    <h2 class="sub-header" id="aggr_event_header">
+      Latest Remote Aggregation: {{ aggr_event['district'] }}
+    </h2>
+  {% endif %}
   <div class="table-responsive">
     <table class="table table-bordered">
       <tbody>
-        <tr>
-            <th>Index</th>
-            <td>{{ aggr_event.meta.index }}</td>
-        </tr>
-        <tr>
-            <th>Document Type</th>
-            <td>{{ aggr_event.meta.doc_type }}</td>
-        </tr>
+        {% if aggr_event['district'] == local_distr %}
+          <tr>
+              <th>Index</th>
+              <td>{{ aggr_event.index }}</td>
+          </tr>
+        {% else %}
+          <tr>
+              <th>Index</th>
+              <td>{{ aggr_event.meta.index }}</td>
+          </tr>
+          <tr>
+              <th>Document Type</th>
+              <td>{{ aggr_event.meta.doc_type }}</td>
+          </tr>
+        {% endif %}  
         {% for field in aggr_event %}
-            {% if not field == "attackers" and not field == "victims" and not field == "cidrs"%}
+            {% if not field == "attackers" and not field == "cidrs"%}
                 <tr>
                     <th>{{ field }}</th>
                     <td>{{ aggr_event[field] }}</td>
@@ -51,79 +88,34 @@
     </table>
   </div>
   {% if aggr_event.aggregation_type == 'attacker'%}
-  <div class="table-responsive" id="main_table">
-    <table class="table table-bordered">
-      <thead>
-        <tr>
-            <th colspan="100" style="text-align: center;">
-                Attackers
-            </th>
-        </tr>
-        <tr>
-          <th>Attacker_ip</th>
-          <th>Attempts</th>
-          {% if aggr_event.xcheck %}
-            <th>Blacklisted</th>
-          {% endif %}
-        </tr>
-      </thead>
-      <tbody>
-        {% for attacker in aggr_event['attackers'] %}
-            <tr>
-              <td>{{attacker['attacker_ip']}}</td>
-              <td>{{attacker['attempts']}}</td>
-              {% if aggr_event.xcheck %}
-                <td>{{attacker['blacklisted']}}</td>
-              {% endif %}
-            </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-  </div>
-  {% elif aggr_event.aggregation_type == 'victim' %}
-    {% for victim in aggr_event['victims'] %}
-    <div id="victim_container">
-        <div class="table-responsive">
-            <table class="table table-striped">
-              <tbody>
-                <tr>
-                    <th>Victim</th>
-                    <td>{{ victim.victim_host }}</td>
-                </tr>
-                <tr>
-                    <th>Total Attempts</th>
-                    <td>{{ victim.total_attempts }}</td>
-                </tr>
-              </tbody>
-            </table>
-        </div>
-        <div class="line-separator"></div>
-        <div class="table-responsive" id="main_table">
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th colspan="100" style="text-align: center;">
-                            Attackers
-                        </th>
-                    </tr>
-                    <tr>
-                      {% for field in victim.attackers[0] %}
-                        <th>{{ field }}</th>
-                      {% endfor %}
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for attacker in victim.attackers %}
-                        <tr>
-                        {% for field in attacker %}
-                          <td>{{ attacker[field] }}</td>
-                        {% endfor %}
-                        </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
+    <div class="table-responsive" id="main_table">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+              <th colspan="100" style="text-align: center;">
+                  Attackers
+              </th>
+          </tr>
+          <tr>
+            <th>Attacker_ip</th>
+            <th>Attempts</th>
+            {% if aggr_event.xcheck %}
+              <th>Blacklisted</th>
+            {% endif %}
+          </tr>
+        </thead>
+        <tbody>
+          {% for attacker in aggr_event['attackers'] %}
+              <tr>
+                <td>{{attacker['attacker_ip']}}</td>
+                <td>{{attacker['attempts']}}</td>
+                {% if aggr_event.xcheck %}
+                  <td>{{attacker['blacklisted']}}</td>
+                {% endif %}
+              </tr>
+          {% endfor %}
+        </tbody>
+      </table>
     </div>
-    {% endfor %}
   {% endif %}
 {% endblock %}

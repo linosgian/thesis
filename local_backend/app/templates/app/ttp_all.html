@@ -1,0 +1,83 @@
+{% extends "app/base.html" %}
+
+{% block content %}
+  <div class="table-responsive">
+  <table class="table table-bordered">
+    <thead>
+        <tr>
+            <th colspan="100" style="text-align: center;">
+                Average Reputation
+            </th>
+        </tr>
+        <tr>
+          <th>Collaborator</th>
+          <th>Reputation</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for district in event.avg_reps %}
+          <tr>
+            <td>{{district}}</td>
+            <td>{{event.avg_reps[district]}}%</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <div class="table-responsive" id="main_table">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+              <th colspan="100" style="text-align: center;">
+                  Attackers
+              </th>
+          </tr>
+          <tr>
+            <th>Attacker_ip</th>
+            <th>Attempts</th>
+            <th>Reporters</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for attacker in attackers %}
+              <tr>
+                <td>{{attacker['attacker_ip']}}</td>
+                <td>{{attacker['attempts']}}</td>
+                <td>{{attacker['reporters']}}</td>
+              </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+  <div class="table-responsive" id="main_table">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+              <th colspan="100" style="text-align: center;">
+                  CIDRs
+              </th>
+          </tr>
+
+          <tr>
+            <th>Network</th>
+            <th>Total Attempts</th>
+            <th>Number Of Attackers</th>
+            <th>Reporters</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for cidr in cidrs %}
+            <tr>
+              <td>{{ cidr['network'] }}</td>
+              <td>{{ cidr['total_attempts'] }}</td>
+              <td>{{ cidr['participants'] }}</td>
+              <td>{{ cidr['reporters']}}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+{% endblock %}
