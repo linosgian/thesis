@@ -8,7 +8,7 @@
 
   <ul class="dropdown-menu">
     {% for district in districts %}
-      <li><a href="/ttp?coll={{district.district}}">{{district.district}}</a></li>
+      <li><a href="/ttp?coll={{district.name}}">{{district.name}}</a></li>
     {% endfor %}
   </ul>
 </li>
@@ -21,10 +21,10 @@
     </h2>
   {% else %}
     <h2 class="sub-header" id="aggr_event_header">
-      Results - [{{ local_distr }} - {{ remote_district.district|title }}]
+      Comparison Results - [{{ local_distr }} - {{ remote_district.name|title }}]
     </h2>
     <h3>
-      Matching Percentage: {{percentage}}% 
+      Matching Percentage: {{percentage}}%  
       <form id="form" action="/" method="post">
         <input type="hidden" name="topup" value="{{aggr_event['district']}}">
         <button type="submit"><i class="fa fa-arrow-up" aria-hidden="true"></i>
@@ -32,7 +32,7 @@
       </form> 
     </h3>
     <h4>
-      {{remote_district.district|title}}'s Reputation {{remote_district.rep}}%
+      {{remote_district.name|title}}'s Reputation {{remote_district.rep}}%
     </h4>
     <div class="table-responsive" id="main_table">
       <table class="table table-bordered">

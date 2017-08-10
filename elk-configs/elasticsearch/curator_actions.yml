@@ -1,0 +1,33 @@
+# Change all "netmode" references to your district's name
+actions:
+  1:
+    action: create_index
+    description: "Creating monthly index"
+    options:
+      name: '<netmode-logstash-monthly-{now/M-1M{YYYY.MM}}>'
+  2:
+    description: "Reindex this month's indices into a monthly index"
+    action: reindex
+    options:
+      wait_interval: 9
+      max_wait: -1
+      request_body:
+        source:
+          index: '<netmode-logstash-{now/M-1M{YYYY.MM}}.*>'
+        dest:
+          index: '<netmode-logstash-monthly-{now/M-1M{YYYY.MM}}>'
+    filters:
+      - filtertype: none
+  3:
+    description: "Deleting all daily indices for last month"
+    action: delete_indices
+    filters:
+    - filtertype: pattern
+      kind: prefix
+      value: 'netmode-logstash-'
+    - filtertype: age
+      source: name
+      direction: older
+      timestring: '%Y.%m.%d'
+      unit: days
+      unit_count: 30

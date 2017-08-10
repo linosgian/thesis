@@ -1,15 +1,3 @@
-1) Data collected ?
-	- nginx access/error			(PDONE)
-	- Auth log						(DONE)
-	- SMTP							(SAME)
-	- IMAP							(SAME)
-	- IDS
-	- Fail2Ban
-	- DNS (TODO: Adam) ( To IDS tha prepei na kanei detect malware signatures kalutera)
-	- Firewall (ufw/IPtables etc)
-
-2) Categories
-	- ..
-3) Aggregation se stadia ( ana domain, ana log, ana kathgoria, ana IP/Prefix)
-
-4) API Exposure / Produce knowledge / Banlists etc.
+- Curator does not support environment vars, therefore, the install script must export the DISTRICT variable to the environment and convert all references of "netmode" in  curator's configuration.
+- Make a cohesive installation guide.
+- 

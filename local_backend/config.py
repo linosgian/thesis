@@ -1,3 +1,4 @@
+import os
 DEBUG = True
 
 SQLALCHEMY_TRACK_MODIFICATIONS 	= True
@@ -11,4 +12,6 @@ TTP_HOST = '147.102.13.154'
 TTP_PORT = '58080'
 TTP_REP_INDEX = 'reputations'
 TTP_AGGR_INDEX_PREFIX = 'ttp-aggregations-'
-LOCAL_LATEST_AGGR = '/home/linos/.virtualenvs/ESclient/source/latest_aggr.json'
+
+# Path to the local latest aggregation. Should be under ESclient/source/latest_aggr.json
+LOCAL_LATEST_AGGR = os.environ['LATEST_AGGR_PATH']

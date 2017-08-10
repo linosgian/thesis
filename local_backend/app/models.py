@@ -7,11 +7,11 @@ class Reputation(db.Model):
 	date_modified 	= db.Column(db.DateTime, default=datetime.datetime.utcnow,
 											onupdate=datetime.datetime.utcnow)
 	date_created 	= db.Column(db.DateTime, default=datetime.datetime.utcnow)
-	district		= db.Column(db.String(40), unique=True)
+	name			= db.Column(db.String(40), unique=True)
 	rep 			= db.Column(db.SmallInteger, default=app.config['DEFAULT_REP'])
 	
-	def __init__(self, district):
-		self.district = district
+	def __init__(self, name):
+		self.name = name
 
 	def __repr__(self):
-		return '%s' % self.district
+		return '%s' % self.name
